@@ -27,7 +27,7 @@ export default function Contact() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-      const response = await axios.post(`${apiUrl}/api/contact`, formData)
+      const response = await axios.post(`${apiUrl}/contact`, formData)
       setSubmitStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' })
       setFormData({ name: '', email: '', subject: '', message: '' })
       
