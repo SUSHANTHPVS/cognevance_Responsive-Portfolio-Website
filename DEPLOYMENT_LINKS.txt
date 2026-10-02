@@ -1,0 +1,83 @@
+================================================================================
+                    DEPLOYMENT LINKS FOR EVALUATORS
+================================================================================
+
+Project: Responsive Portfolio Website
+
+================================================================================
+FRONTEND DEPLOYMENT (React + Vite)
+================================================================================
+Platform: Vercel
+URL: https://cognevance-responsive-portfolio-web-kappa.vercel.app/
+
+
+Note: The frontend is built with React + Vite and styled with Tailwind CSS.
+It includes:
+- Responsive design (Mobile, Tablet, Desktop)
+- Hero section
+- About section
+- Projects showcase
+- Skills section
+- Contact form
+- Navbar with navigation
+- Footer
+
+================================================================================
+BACKEND DEPLOYMENT (Node.js + Express)
+================================================================================
+Platform: Render
+URL: https://cognevance-responsive-portfolio-website-gz6y.onrender.com
+
+
+Note: The backend API includes:
+- Express.js server
+- MongoDB database connection
+- Contact form submission endpoint
+- Health check endpoint
+- Email notification functionality
+
+================================================================================
+API ENDPOINTS TO TEST
+================================================================================
+
+1. Health Check:
+   GET {RENDER_URL}/api/health
+   
+2. Contact Form Submission:
+   POST {RENDER_URL}/api/contact
+   Required fields:
+   - name
+   - email
+   - subject
+   - message
+
+================================================================================
+DEPLOYMENT INSTRUCTIONS (For Reference)
+================================================================================
+
+FRONTEND (Vercel):
+1. Push code to GitHub repository
+2. Connect repository to Vercel
+3. Deploy with one-click deployment
+4. Environment variables (if needed): Add API endpoint URL
+
+BACKEND (Render):
+1. Push backend code to GitHub
+2. Create new Web Service on Render
+3. Connect your GitHub repository
+4. Configure environment variables:
+   - MONGODB_URI
+   - PORT (defaults to 10000)
+   - NODE_ENV=production
+5. Deploy automatically on push
+
+================================================================================
+SUPPORT & CONTACT
+================================================================================
+
+For any issues or questions regarding deployment links:
+- Check the DEPLOYMENT.md file for detailed setup instructions
+- Refer to QUICK_START.md for quick setup guide
+- See README_ENHANCED.md for complete project documentation
+
+================================================================================
