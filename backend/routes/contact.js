@@ -45,31 +45,7 @@ router.post('/', async (req, res) => {
     // Save to database
     await contactMessage.save()
 
-    // Send confirmation email to user
-    try {
-      await sendEmail({
-        to: email,
-        subject: `Message Received: ${subject}`,
-        template: 'confirmation',
-        data: { name: name.split(' ')[0] }
-      })
-    } catch (emailError) {
-      console.error('Confirmation email failed:', emailError.message)
-      // Don't fail the request if email fails
-    }
-
-    // Send notification email to admin
-    try {
-      await sendEmail({
-        to: process.env.ADMIN_EMAIL || 'pvsushanthpv@gmail.com',
-        subject: `New Contact Form Submission: ${subject}`,
-        template: 'admin',
-        data: { name, email, subject, message }
-      })
-    } catch (emailError) {
-      console.error('Admin notification email failed:', emailError.message)
-    }
-
+    // Return response immediately to user (don't wait for emails)
     res.status(201).json({
       success: true,
       message: 'Message received! I\'ll get back to you soon.',
@@ -77,6 +53,27 @@ router.post('/', async (req, res) => {
         id: contactMessage._id,
         timestamp: contactMessage.createdAt
       }
+    })
+
+    // Send emails asynchronously in the background (non-blocking)
+    Promise.allSettled([
+      // Send confirmation email to user
+      sendEmail({
+        to: email,
+        subject: `Message Received: ${subject}`,
+        template: 'confirmation',
+        data: { name: name.split(' ')[0] }
+      }).catch(err => console.error('Confirmation email failed:', err.message)),
+      
+      // Send notification email to admin
+      sendEmail({
+        to: process.env.ADMIN_EMAIL || 'pvsushanthpv@gmail.com',
+        subject: `New Contact Form Submission: ${subject}`,
+        template: 'admin',
+        data: { name, email, subject, message }
+      }).catch(err => console.error('Admin notification email failed:', err.message))
+    ]).then(results => {
+      console.log('✓ Background emails processed')
     })
   } catch (error) {
     console.error('Contact form error:', error)
